@@ -1,0 +1,30 @@
+{
+  "name": "micromangement",
+  "version": "1.0.0",
+  "description": "easy process deployment across a fleet",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard && tap",
+    "format": "standard --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryanramage/micromanagement.git"
+  },
+  "author": "Ryan Ramage",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryanramage/micromanagement/issues"
+  },
+  "homepage": "https://github.com/ryanramage/micromanagement#readme",
+  "dependencies": {
+    "getports": "^1.0.2",
+    "hyperseaport": "^2.0.0",
+    "pm2": "^5.2.2"
+  },
+  "devDependencies": {
+    "standard": "^17.0.0",
+    "tap": "^16.3.4",
+    "tape": "^5.6.3"
+  }
+}
