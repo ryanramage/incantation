@@ -19,7 +19,7 @@
   "homepage": "https://github.com/ryanramage/micromanagement#readme",
   "dependencies": {
     "getports": "^1.0.2",
-    "hyperseaport": "^2.0.0",
+    "hyperseaport": "^2.1.0",
     "pm2": "^5.2.2"
   },
   "devDependencies": {
