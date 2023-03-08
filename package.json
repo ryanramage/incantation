@@ -18,8 +18,14 @@
   },
   "homepage": "https://github.com/ryanramage/micromanagement#readme",
   "dependencies": {
+    "@hapi/boom": "^10.0.1",
+    "@hyperswarm/dht": "^6.4.1",
+    "get-bin-path": "^8.0.0",
     "getports": "^1.0.2",
     "hyperseaport": "^2.1.0",
+    "make-dir": "^3.1.0",
+    "npminstall": "^7.5.2",
+    "pacote": "^15.1.1",
     "pm2": "^5.2.2"
   },
   "devDependencies": {

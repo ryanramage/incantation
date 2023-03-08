@@ -1,5 +1,5 @@
 const PM2 = require('../pm2')
-const Start = require('../incantation/start')
+const IncantationManage = require('../incantation/incantationManager')
 const NodeProjectRune = require('../rune/nodeProjectRune')
 const { Service, KeyPair } = require('hyperseaport')
 
@@ -12,12 +12,12 @@ async function run () {
   const instanceUUID = '1bsdaf-3232-32dff-32'
   const registryPublicKey = '5f8f4587d2a3640c7b7b55e03c77a9bfef4e3aa582ccdd25b6202995a7db15dd'
 
-  const incantation = Start(Service, KeyPair, instanceUUID, registryPublicKey, pm2)
-  const results1 = await incantation.start(rune1)
+  const incantationManager = IncantationManage(Service, KeyPair, instanceUUID, registryPublicKey, pm2)
+  const incantation1 = await incantationManager.start(rune1)
 
   setTimeout(async () => {
-    const results2 = await incantation.start(rune2)
-    console.log(results2)
+    //const incantation2 = await incantationManager.start(rune2)
+    const list = await incantationManager.list()
     pm2.disconnect()
   }, 5000)
 }
