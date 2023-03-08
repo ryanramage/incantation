@@ -18,6 +18,8 @@ test('full lifecycle', async t => {
     spec: 'code-music-studio'
   })
   const incantation = await micromanagement.start(rune)
+  const list = await micromanagement.listRunning()
+  console.log('da list', list)
   await micromanagement.stop(incantation)
   await pm2.disconnect()
   t.end()

@@ -1,5 +1,5 @@
 {
-  "name": "micromangement",
+  "name": "incantation",
   "version": "1.0.0",
   "description": "easy process deployment across a fleet",
   "main": "index.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ryanramage/micromanagement.git"
+    "url": "git+https://github.com/ryanramage/incantation.git"
   },
   "author": "Ryan Ramage",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ryanramage/micromanagement/issues"
+    "url": "https://github.com/ryanramage/incantation/issues"
   },
-  "homepage": "https://github.com/ryanramage/micromanagement#readme",
+  "homepage": "https://github.com/ryanramage/incantation#readme",
   "dependencies": {
     "@hapi/boom": "^10.0.1",
     "@hyperswarm/dht": "^6.4.1",
@@ -26,7 +26,8 @@
     "make-dir": "^3.1.0",
     "npminstall": "^7.5.2",
     "pacote": "^15.1.1",
-    "pm2": "^5.2.2"
+    "pm2": "^5.2.2",
+    "rimraf": "^4.3.1"
   },
   "devDependencies": {
     "standard": "^17.0.0",

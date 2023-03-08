@@ -1,9 +1,7 @@
-MICROMANAGEMENT
+Incantation
 ----------------
 
-Easy peasy automated deployment, scaling, and management of applications.
-
-A personal p2p fleet of applications servers that is easy to setup and control
+Magic automated deployment, scaling, and management of processes across a p2p fleet.
 
 ALPHA - This is currenly a work in progress.
 

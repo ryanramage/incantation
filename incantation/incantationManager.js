@@ -25,8 +25,12 @@ module.exports = (Service, Keypair, instanceUUID, registryPublicKey, pm2) => {
   const list = async () => new Promise((resolve, reject) => {
     pm2.list((err, list) => {
       if (err) return reject(err)
-      list.forEach(item => item.incantation = incantations[item.name])
-      resolve(list)
+      const running = list.map(process => {
+        const incantation = incantations[process.name]
+        incantation.process = process
+        return incantation
+      })
+      resolve(running)
     })
   })
 

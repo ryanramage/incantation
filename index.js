@@ -17,6 +17,7 @@ module.exports = (Service, KeyPair, baseDir, instanceUUID, registryPublicKey, pm
     // incantationManager methods
     start: incantationManager.start,
     stop: incantationManager.stop,
+    listRunning: incantationManager.list,
     destroy: destroy
   }
 }
