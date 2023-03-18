@@ -26,7 +26,11 @@ module.exports = (Service, Keypair, instanceUUID, registryPublicKey, pm2) => {
     pm2.list((err, list) => {
       if (err) return reject(err)
       const running = list.map(process => {
-        const incantation = incantations[process.name]
+        let incantation = incantations[process.name]
+        if (!incantation) {
+          // we dont have any info about this, we did not start it?
+          incantation = {}
+        }
         incantation.process = process
         return incantation
       })
