@@ -24,6 +24,7 @@
     "get-bin-path": "^8.0.0",
     "getports": "^1.0.2",
     "hyperseaport": "^3.0.0",
+    "joi": "^17.8.4",
     "make-dir": "^3.1.0",
     "npminstall": "^7.5.2",
     "pacote": "^15.1.1",
