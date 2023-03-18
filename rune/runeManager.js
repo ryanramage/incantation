@@ -1,6 +1,7 @@
 const path = require('path')
 const rimraf = require('rimraf')
 const npm = require('./installers/npm')
+const makeDir = require('make-dir')
 const NodeProjectRune = require('./nodeProjectRune')
 
 const getInstallPath = (baseDir, type, spec) => {
