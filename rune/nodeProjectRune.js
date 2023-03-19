@@ -2,15 +2,14 @@ const path = require('path')
 
 async function getBinPath (baseDir) {
   const { getBinPath } = await import('get-bin-path')
-  return await getBinPath({cwd: baseDir})
+  return await getBinPath({ cwd: baseDir })
 }
 module.exports = async (installedDir) => {
-
-  const package = require(path.resolve(installedDir, './package.json'))
-  const fullScriptPath = await getBinPath(installedDir) 
+  const packageInfo = require(path.resolve(installedDir, './package.json'))
+  const fullScriptPath = await getBinPath(installedDir)
 
   return {
-    getRole: () => ({ role: package.name, version: package.version }),
+    getRole: () => ({ role: packageInfo.name, version: packageInfo.version }),
     getRuntime: () => ({
       script: fullScriptPath,
       cwd: installedDir,

@@ -9,7 +9,7 @@ module.exports = (Service, Keypair, instanceUUID, registryPublicKey, pm2) => {
   const _stop = Stop(pm2)
 
   const start = async (rune, args, environment, processOptions) => {
-    const incantation = await _start(rune, args, environment, processOptions) 
+    const incantation = await _start(rune, args, environment, processOptions)
     incantations[incantation.name] = incantation
     return incantation
   }
@@ -37,8 +37,6 @@ module.exports = (Service, Keypair, instanceUUID, registryPublicKey, pm2) => {
       resolve(running)
     })
   })
-
-  
 
   return {
     start, stop, list

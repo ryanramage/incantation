@@ -1,29 +1,27 @@
-#!/usr/bin/env node 
+#!/usr/bin/env node
 
-const Hapi = require('@hapi/hapi');
+const Hapi = require('@hapi/hapi')
 
 const init = async () => {
-    const server = Hapi.server({
-        port: process.env.HOST || 3000
-    });
+  const server = Hapi.server({
+    port: process.env.HOST || 3000
+  })
 
-    server.route({
-        method: 'GET',
-        path: '/',
-        handler: (request, h) => {
+  server.route({
+    method: 'GET',
+    path: '/',
+    handler: (request, h) => {
+      return 'Hello World!'
+    }
+  })
 
-            return 'Hello World!';
-        }
-    });
-
-    await server.start();
-    console.log('Server running on %s', server.info.uri);
-};
+  await server.start()
+  console.log('Server running on %s', server.info.uri)
+}
 
 process.on('unhandledRejection', (err) => {
+  console.log(err)
+  process.exit(1)
+})
 
-    console.log(err);
-    process.exit(1);
-});
-
-init();
+init()

@@ -1,12 +1,11 @@
 #!/usr/bin/env node
-'use strict';
+'use strict'
 const rc = require('rc')
 const Api = require('../index')
 const PM2 = require('../pm2')
 const { npmInstall, npmInstallNameOnly } = require('../web/runeInstall')
-const Hapi = require('@hapi/hapi');
-const Joi = require('joi')
-const {KeyPair, Service} = require('hyperseaport');
+const Hapi = require('@hapi/hapi')
+const { KeyPair, Service } = require('hyperseaport')
 const dataDir = require('hyperseaport/lib/dataDir')
 const randomBytes = require('hyperseaport/lib/randomBytes')
 const options = rc('incantation', {
@@ -28,7 +27,7 @@ const init = async () => {
   const api = Api(Service, KeyPair, options.baseDir, options.instanceUUID, options.registryPublicKey, pm2)
   const server = Hapi.server({
     port: options.port,
-    host: options.host 
+    host: options.host
   })
   server.route(npmInstall(api))
   server.route(npmInstallNameOnly(api))
@@ -41,11 +40,11 @@ const init = async () => {
   server.route({
     path: '/incantation/list',
     method: 'GET',
-    handler: async(req, res) => api.listRunning()
+    handler: async (req, res) => api.listRunning()
   })
-  await server.start();
+  await server.start()
   console.log('Server running on %s', server.info.uri)
-};
+}
 
 process.on('unhandledRejection', (err) => {
   console.log(err)

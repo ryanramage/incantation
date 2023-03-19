@@ -10,13 +10,13 @@ const getInstallPath = (baseDir, type, spec) => {
   return installPath
 }
 
-const install = async (baseDir, {type, spec, ...options}) => {
+const install = async (baseDir, { type, spec, ...options }) => {
   const installPath = getInstallPath(baseDir, type, spec)
   const installDir = await makeDir(installPath)
-  if (type === 'npm') return npm(installDir, spec, options) 
+  if (type === 'npm') return npm(installDir, spec, options)
 }
 
-const getRune = async (baseDir, {type, spec}) => {
+const getRune = async (baseDir, { type, spec }) => {
   const installPath = getInstallPath(baseDir, type, spec)
   if (type === 'npm') return await NodeProjectRune(installPath)
 }
@@ -25,9 +25,9 @@ const list = async (baseDir) => {
   console.log(baseDir)
 }
 
-const remove = async (baseDir, {type, spec}) => {
+const remove = async (baseDir, { type, spec }) => {
   const installPath = getInstallPath(baseDir, type, spec)
-  await rimraf(installPath) 
+  await rimraf(installPath)
 }
 
 module.exports = (baseDir) => ({

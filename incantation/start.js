@@ -13,8 +13,7 @@ const start = async (Service, KeyPair, instanceUUID, registryPublicKey, pm2, run
   const port = await getPort()
   const portInfo = { portEnvironmentVariable, port }
   const options = createPM2Opts(name, script, cwd, portInfo, { args, environment, processOptions })
-  console.log(options)
-  const info = await pm2Start(pm2, options)
+  await pm2Start(pm2, options)
 
   // start a p2p port
   const seed = seedFromString(`${instanceUUID}|${name}`)

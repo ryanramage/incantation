@@ -4,6 +4,6 @@ const NodeProjectRune = require('../nodeProjectRune')
 
 module.exports = async (installDir, spec, options) => {
   await pacote.extract(spec, installDir, options)
-  await npminstall({ root: installDir})
+  await npminstall({ root: installDir })
   return await NodeProjectRune(installDir)
 }

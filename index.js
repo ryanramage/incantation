@@ -9,17 +9,21 @@ module.exports = (Service, KeyPair, baseDir, instanceUUID, registryPublicKey, pm
     // go through all the incantationManager and destroy
   }
 
-  return {
-    // rune methods
+  const rune = {
     install: runeManager.install,
     list: runeManager.list,
-    remove: runeManager.remove,
-    // incantationManager methods
+    remove: runeManager.remove
+  }
+
+  const incantation = {
     start: incantationManager.start,
     stop: incantationManager.stop,
-    listRunning: incantationManager.list,
-    destroy: destroy
+    list: incantationManager.list
+  }
+
+  return {
+    rune,
+    incantation,
+    destroy
   }
 }
-
-

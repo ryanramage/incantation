@@ -21,7 +21,7 @@ const npmInstallNameOnly = api => ({
       payload: npmInstallOptions
     }
   },
-  handler: async (req) => api.install({
+  handler: async (req) => api.rune.install({
     type: 'npm',
     spec: `${req.params.name}`,
     options: req.payload
@@ -40,7 +40,7 @@ const npmInstall = api => ({
       payload: npmInstallOptions
     }
   },
-  handler: async (req) => api.install({
+  handler: async (req) => api.rune.install({
     type: 'npm',
     spec: `${req.params.name}@${req.params.version}`,
     options: req.payload
