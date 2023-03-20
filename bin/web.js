@@ -37,13 +37,15 @@ const init = async () => {
   server.route({
     path: '/rune/list',
     method: 'GET',
-    handler: async (req, res) => api.list()
+    handler: async (req, res) => api.rune.list()
   })
+
   server.route({
     path: '/incantation/list',
     method: 'GET',
-    handler: async (req, res) => api.listRunning()
+    handler: async (req, res) => api.incantation.list()
   })
+
   await server.start()
   console.log('Server running on %s', server.info.uri)
 }

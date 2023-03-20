@@ -10,6 +10,7 @@ module.exports = async (installedDir) => {
 
   return {
     getRole: () => ({ role: packageInfo.name, version: packageInfo.version }),
+    getSpec: () => `${packageInfo.name}@${packageInfo.version}`,
     getRuntime: () => ({
       script: fullScriptPath,
       cwd: installedDir,

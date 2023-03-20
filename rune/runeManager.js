@@ -1,19 +1,22 @@
 const path = require('path')
+const fs = require('node:fs/promises')
 const rimraf = require('rimraf')
 const npm = require('./installers/npm')
 const makeDir = require('make-dir')
 const NodeProjectRune = require('./nodeProjectRune')
 
-const getInstallPath = (baseDir, type, spec) => {
+const getTypeDir = (baseDir, type) => {
   const typeDir = path.resolve(baseDir, type)
-  const installPath = path.resolve(typeDir, spec)
-  return installPath
+  return typeDir
+}
+const getInstallPath = (baseDir, type, spec) => {
+  return path.resolve(baseDir, type, spec)
 }
 
 const install = async (baseDir, { type, spec, ...options }) => {
-  const installPath = getInstallPath(baseDir, type, spec)
-  const installDir = await makeDir(installPath)
-  if (type === 'npm') return npm(installDir, spec, options)
+  const typePath = getTypeDir(baseDir, type)
+  const typeDir = await makeDir(typePath)
+  if (type === 'npm') return npm(typeDir, spec, options)
 }
 
 const getRune = async (baseDir, { type, spec }) => {
@@ -22,7 +25,10 @@ const getRune = async (baseDir, { type, spec }) => {
 }
 
 const list = async (baseDir) => {
-  console.log(baseDir)
+  const npm = path.resolve(baseDir, 'npm')
+  const nodeRunes = await fs.readdir(npm)
+  const nodeRuneSummary = nodeRunes.map(spec => ({ type: 'npm', spec }))
+  return nodeRuneSummary
 }
 
 const remove = async (baseDir, { type, spec }) => {

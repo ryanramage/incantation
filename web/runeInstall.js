@@ -37,23 +37,24 @@ process.on('log', (level, ...args) => {
 const startInstall = async (baseDir) => {
   if (currentInstallId) throw (Boom.conflict('can only install one rune at a time'))
   currentInstallId = randomBytes(32).toString('hex')
+  const started = Date.now()
   installsByInstallId[currentInstallId] = {
-    status: 'Running'
+    status: 'running',
+    installId: currentInstallId,
+    started
   }
   const logDir = await makeDir(path.resolve(baseDir, 'install-logs'))
   currentLogFileStream = fs.createWriteStream(path.resolve(logDir, `${currentInstallId}.log`))
   currentLogConsole = new Console({
     stdout: currentLogFileStream,
-    stderr: currentLogFileStream 
+    stderr: currentLogFileStream
   })
-  return { fileConsole: currentLogConsole, installId: currentInstallId }
+  return { fileConsole: currentLogConsole, installId: currentInstallId, started }
 }
 
-const afterInstall = (status, exception) => {
-  installsByInstallId[currentInstallId] = {
-    status,
-    exception
-  }
+const afterInstall = (runeStatus) => {
+  installsByInstallId[currentInstallId] = runeStatus 
+  
   currentLogConsole = null
   currentInstallId = null
   currentLogFileStream.end()
@@ -91,8 +92,8 @@ const npmInstallLog = (baseDir) => ({
   },
   handler: async (req) => {
     const installId = req.params.installId
-    //const status = installsByInstallId[installId]
-    //if (!status) return Boom.notFound('installId not found')
+    const status = installsByInstallId[installId]
+    if (!status) return Boom.notFound('installId not found')
 
     const logPath = path.resolve(baseDir, 'install-logs', `${installId}.log`)
     const opts = {}
@@ -114,14 +115,16 @@ const npmInstallNameOnly = (baseDir, api) => ({
     }
   },
   handler: async (req) => {
-    const { fileConsole, installId } = await startInstall(baseDir)
+    const { fileConsole, installId, started } = await startInstall(baseDir)
     api.rune.install({
       type: 'npm',
       spec: `${req.params.name}`,
       options: req.payload,
-      fileConsole
-    }).then(() => afterInstall('Success')).catch(e => afterInstall('Failed', e))
-    return { ok: true, status: 'Running', installId }
+      fileConsole,
+      installId,
+      started
+    }).then(afterInstall).catch(afterInstall)
+    return { status: 'running', installId, started }
   }
 })
 const npmInstall = (baseDir, api) => ({
@@ -137,14 +140,16 @@ const npmInstall = (baseDir, api) => ({
     }
   },
   handler: async (req) => {
-    const { fileConsole, installId } = await startInstall(baseDir)
+    const { fileConsole, installId, started } = await startInstall(baseDir)
     api.rune.install({
       type: 'npm',
       spec: `${req.params.name}@${req.params.version}`,
       options: req.payload,
-      fileConsole
-    }).then(() => afterInstall('Success')).catch(e => afterInstall('Failed', e))
-    return { ok: true, status: 'Running', installId }
+      fileConsole,
+      installId,
+      started
+    }).then(afterInstall).catch(afterInstall)
+    return { status: 'running', installId, started }
   }
 })
 
