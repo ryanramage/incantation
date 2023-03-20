@@ -3,7 +3,7 @@
 const rc = require('rc')
 const Api = require('../index')
 const PM2 = require('../pm2')
-const { npmInstall, npmInstallNameOnly } = require('../web/runeInstall')
+const { npmInstall, npmInstallNameOnly, npmInstallStatus, npmInstallLog } = require('../web/runeInstall')
 const Hapi = require('@hapi/hapi')
 const { KeyPair, Service } = require('hyperseaport')
 const dataDir = require('hyperseaport/lib/dataDir')
@@ -29,8 +29,10 @@ const init = async () => {
     port: options.port,
     host: options.host
   })
-  server.route(npmInstall(api))
-  server.route(npmInstallNameOnly(api))
+  server.route(npmInstall(options.baseDir, api))
+  server.route(npmInstallNameOnly(options.baseDir, api))
+  server.route(npmInstallStatus())
+  server.route(npmInstallLog(options.baseDir))
 
   server.route({
     path: '/rune/list',
