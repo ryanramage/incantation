@@ -25,7 +25,6 @@ const npmInstallOptions = Joi.object({
 const installsByInstallId = {}
 let currentInstallId = null
 let currentLogFileStream = null
-let currentErrorFileStream = null
 let currentLogConsole = null
 
 process.on('log', (level, ...args) => {
@@ -41,11 +40,10 @@ const startInstall = async (baseDir) => {
     status: 'Running'
   }
   const logDir = await makeDir(path.resolve(baseDir, 'install-logs'))
-  currentLogFileStream = fs.createWriteStream(path.resolve(logDir, `${currentInstallId}-log.txt`))
-  currentErrorFileStream = fs.createWriteStream(path.resolve(logDir, `${currentInstallId}-error.txt`))
+  currentLogFileStream = fs.createWriteStream(path.resolve(logDir, `${currentInstallId}.log`))
   currentLogConsole = new Console({
     stdout: currentLogFileStream,
-    stderr: currentErrorFileStream
+    stderr: currentLogFileStream 
   })
   return { fileConsole: currentLogConsole, installId: currentInstallId }
 }
@@ -59,8 +57,6 @@ const afterInstall = (status, exception) => {
   currentInstallId = null
   currentLogFileStream.end()
   currentLogFileStream = null
-  currentErrorFileStream.end()
-  currentErrorFileStream = null
 }
 
 const npmInstallStatus = () => ({
@@ -97,7 +93,7 @@ const npmInstallLog = (baseDir) => ({
     //const status = installsByInstallId[installId]
     //if (!status) return Boom.notFound('installId not found')
 
-    const logPath = path.resolve(baseDir, 'install-logs', `${installId}-log.txt`)
+    const logPath = path.resolve(baseDir, 'install-logs', `${installId}.log`)
     const opts = {}
     if (req.query.start) opts.start = req.query.start
 
