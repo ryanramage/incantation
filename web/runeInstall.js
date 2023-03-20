@@ -13,7 +13,8 @@ const npmInstallOptions = Joi.object({
   registry: Joi.string().optional().description('The npm registry to use by default. Defaults to https://registry.npmjs.org/.'),
   _authToken: Joi.string().optional().description('Authentication token string'),
   username: Joi.string().optional().description('Username used for basic authentication. For the more modern authentication method, please use the (more secure) opts._authtoken'),
-  password: Joi.string().optional().description('Password used for basic authentication. For the more modern authentication method, please use the (more secure) opts._authtoken')
+  password: Joi.string().optional().description('Password used for basic authentication. For the more modern authentication method, please use the (more secure) opts._authtoken'),
+  production: Joi.boolean().optional().description('do a production install, default is true')
 }).optional()
 
 // some web install improvements

@@ -8,7 +8,7 @@ module.exports = async (installDir, spec, { fileConsole, ...options }) => {
     root: installDir,
     console: fileConsole,
     detail: true,
-    production: true
+    production: options.production || true
   })
   return await NodeProjectRune(installDir)
 }
