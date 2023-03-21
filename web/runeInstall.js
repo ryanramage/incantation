@@ -53,8 +53,8 @@ const startInstall = async (baseDir) => {
 }
 
 const afterInstall = (runeStatus) => {
-  installsByInstallId[currentInstallId] = runeStatus 
-  
+  installsByInstallId[currentInstallId] = runeStatus
+
   currentLogConsole = null
   currentInstallId = null
   currentLogFileStream.end()

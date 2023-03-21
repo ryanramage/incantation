@@ -4,6 +4,7 @@ const rc = require('rc')
 const Api = require('../index')
 const PM2 = require('../pm2')
 const { npmInstall, npmInstallNameOnly, npmInstallStatus, npmInstallLog } = require('../web/runeInstall')
+const incantation = require('../web/incantation')
 const Hapi = require('@hapi/hapi')
 const { KeyPair, Service } = require('hyperseaport')
 const dataDir = require('hyperseaport/lib/dataDir')
@@ -33,17 +34,15 @@ const init = async () => {
   server.route(npmInstallNameOnly(options.baseDir, api))
   server.route(npmInstallStatus())
   server.route(npmInstallLog(options.baseDir))
+  server.route(incantation.run(api))
+  server.route(incantation.list(api))
+  server.route(incantation.stop(api))
+  server.route(incantation.restart(api))
 
   server.route({
     path: '/rune/list',
     method: 'GET',
     handler: async (req, res) => api.rune.list()
-  })
-
-  server.route({
-    path: '/incantation/list',
-    method: 'GET',
-    handler: async (req, res) => api.incantation.list()
   })
 
   await server.start()

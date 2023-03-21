@@ -38,6 +38,7 @@ module.exports = async (typeDir, spec, { fileConsole, installId, started, ...opt
       runeStatus.finished = Date.now()
       await writeRuneStatusFile(installDir, runeStatus)
     }
-    return runeStatus
+    // we know what we are doing, right?
+    return runeStatus // eslint-disable-line 
   }
 }

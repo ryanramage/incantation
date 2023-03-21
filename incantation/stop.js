@@ -1,7 +1,7 @@
 module.exports = (pm2) => {
   const stop = async ({ name, service }) => {
     await pm2Stop(pm2, name)
-    await service.destroy()
+    if (service) service.destroy()
   }
   return stop
 }

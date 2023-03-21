@@ -17,12 +17,17 @@ const start = async (Service, KeyPair, instanceUUID, registryPublicKey, pm2, run
 
   // start a p2p port
   const seed = seedFromString(`${instanceUUID}|${name}`)
-  console.log('starting', name, 'seed', seed, 'on port', portInfo)
+  console.log('starting', name, 'seed', seed.toString('hex'), 'on port', portInfo)
   const keyPair = KeyPair({ seed })
   const service = Service({ registryPublicKey, role: name, port, keyPair })
   await service.setup()
 
-  return { name, service }
+  return {
+    name,
+    port,
+    publicKey: keyPair.publicKey.toString('hex'),
+    service
+  }
 }
 
 module.exports = (Service, KeyPair, instanceUUID, registryPublicKey, pm2) => {

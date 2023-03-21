@@ -12,13 +12,15 @@ module.exports = (Service, KeyPair, baseDir, instanceUUID, registryPublicKey, pm
   const rune = {
     install: runeManager.install,
     list: runeManager.list,
-    remove: runeManager.remove
+    remove: runeManager.remove,
+    get: runeManager.getRune
   }
 
   const incantation = {
     start: incantationManager.start,
     stop: incantationManager.stop,
-    list: incantationManager.list
+    list: incantationManager.list,
+    restart: incantationManager.restart
   }
 
   return {
