@@ -38,6 +38,9 @@ const init = async () => {
   server.route(incantation.list(api))
   server.route(incantation.stop(api))
   server.route(incantation.restart(api))
+  server.route(incantation.remove(api))
+  server.route(incantation.stdout(api))
+  server.route(incantation.stderr(api))
 
   server.route({
     path: '/rune/list',

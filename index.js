@@ -20,7 +20,10 @@ module.exports = (Service, KeyPair, baseDir, instanceUUID, registryPublicKey, pm
     start: incantationManager.start,
     stop: incantationManager.stop,
     list: incantationManager.list,
-    restart: incantationManager.restart
+    restart: incantationManager.restart,
+    remove: incantationManager.remove,
+    stdout: incantationManager.stdout,
+    stderr: incantationManager.stderr
   }
 
   return {

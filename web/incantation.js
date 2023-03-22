@@ -74,4 +74,47 @@ const restart = (api) => ({
   }
 })
 
-module.exports = { run, list, stop, restart }
+const remove = (api) => ({
+  path: '/incantation/{name}',
+  method: 'DELETE',
+  handler: async (req) => {
+    const name = req.params.name
+    await api.incantation.remove(name)
+    return { ok: true }
+  }
+})
+
+const stdout = (api) => ({
+  path: '/incantation/{name}/stdout',
+  method: 'GET',
+  options: {
+    validate: {
+      query: Joi.object({
+        start: Joi.number().optional().description('start byte offset'),
+        end: Joi.number().optional().description('end byte offset')
+      })
+    }
+  },
+  handler: (req) => {
+    const name = req.params.name
+    return api.incantation.stdout(name, req.query)
+  }
+})
+const stderr = (api) => ({
+  path: '/incantation/{name}/stderr',
+  method: 'GET',
+  options: {
+    validate: {
+      query: Joi.object({
+        start: Joi.number().optional().description('start byte offset'),
+        end: Joi.number().optional().description('end byte offset')
+      })
+    }
+  },
+  handler: (req) => {
+    const name = req.params.name
+    return api.incantation.stderr(name, req.query)
+  }
+})
+
+module.exports = { run, list, stop, restart, remove, stdout, stderr }
