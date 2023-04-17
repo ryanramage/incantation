@@ -2,7 +2,7 @@ const getports = require('getports')
 const createPM2Opts = require('./internal/createPM2Opts')
 const seedFromString = require('./internal/seedFromString')
 
-const start = async (Service, KeyPair, instanceUUID, registryPublicKey, pm2, rune, args, environment, processOptions) => {
+const start = async (Service, KeyPair, instanceUUID, registryPublicKey, pm2, rune, args, environment, processOptions, dht) => {
   // load rune
   const { role, version } = rune.getRole()
   const name = `${role}@${version}`
@@ -19,7 +19,7 @@ const start = async (Service, KeyPair, instanceUUID, registryPublicKey, pm2, run
   const seed = seedFromString(`${instanceUUID}|${name}`)
   console.log('starting', name, 'seed', seed.toString('hex'), 'on port', portInfo)
   const keyPair = KeyPair({ seed })
-  const service = Service({ registryPublicKey, role: name, port, keyPair })
+  const service = Service({ registryPublicKey, role: name, port, keyPair, dht })
   await service.setup()
 
   return {
@@ -30,8 +30,8 @@ const start = async (Service, KeyPair, instanceUUID, registryPublicKey, pm2, run
   }
 }
 
-module.exports = (Service, KeyPair, instanceUUID, registryPublicKey, pm2) => {
-  const _start = (rune, args, environment, processOptions) => start(Service, KeyPair, instanceUUID, registryPublicKey, pm2, rune, args, environment, processOptions)
+module.exports = (Service, KeyPair, instanceUUID, registryPublicKey, pm2, dht) => {
+  const _start = (rune, args, environment, processOptions) => start(Service, KeyPair, instanceUUID, registryPublicKey, pm2, rune, args, environment, processOptions, dht)
   return _start
 }
 

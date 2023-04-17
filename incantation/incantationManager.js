@@ -4,7 +4,7 @@ const Start = require('./start')
 const Stop = require('./stop')
 const seedFromString = require('./internal/seedFromString')
 
-module.exports = (Service, KeyPair, instanceUUID, registryPublicKey, pm2) => {
+module.exports = (Service, KeyPair, instanceUUID, registryPublicKey, pm2, dht) => {
   const incantations = {}
 
   const pm2list = () => new Promise((resolve, reject) => {
@@ -37,7 +37,7 @@ module.exports = (Service, KeyPair, instanceUUID, registryPublicKey, pm2) => {
     })
   })
 
-  const _start = Start(Service, KeyPair, instanceUUID, registryPublicKey, pm2)
+  const _start = Start(Service, KeyPair, instanceUUID, registryPublicKey, pm2, dht)
   const _stop = Stop(pm2)
 
   const start = async (rune, args, environment, processOptions) => {
@@ -90,7 +90,7 @@ module.exports = (Service, KeyPair, instanceUUID, registryPublicKey, pm2) => {
     const seed = seedFromString(`${instanceUUID}|${name}`)
     console.log('starting', name, 'seed', seed.toString('hex'), 'on port', portInfo)
     const keyPair = KeyPair({ seed })
-    const service = Service({ registryPublicKey, role: name, port, keyPair })
+    const service = Service({ registryPublicKey, role: name, port, keyPair, dht })
     await service.setup()
 
     incantation = {
