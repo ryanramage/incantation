@@ -20,10 +20,10 @@
   "dependencies": {
     "@hapi/boom": "^10.0.1",
     "@hapi/hapi": "^21.3.0",
-    "@hyperswarm/dht": "^6.4.1",
     "get-bin-path": "^8.0.0",
     "getports": "^1.0.2",
-    "hyperseaport": "^3.0.0",
+    "hyperdht": "^6.6.0",
+    "hyperseaport": "^3.0.1",
     "joi": "^17.8.4",
     "make-dir": "^3.1.0",
     "npminstall": "^7.5.2",
